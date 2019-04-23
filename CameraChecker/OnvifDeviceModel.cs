@@ -28,27 +28,18 @@ namespace CameraCheckerApp
             try
             {
                 EndpointAddress address = new EndpointAddress(uri);
-                /* HttpTransportBindingElement httpBinding = new HttpTransportBindingElement
-                 {
-                     AuthenticationScheme = AuthenticationSchemes.Digest
-                 };
-                 var messageElement = new TextMessageEncodingBindingElement
-                 {
-                     MessageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None)
-                 };
-                 CustomBinding bind = new CustomBinding(messageElement, httpBinding);*/
-
+                
                 var device = new OnvifDevice.DeviceClient(WSDLBinding.GetWsdlBinding(), address);
 
                 PasswordDigestBehavior passwordDigestBehavior = new PasswordDigestBehavior(login, password);
 
                 device.Endpoint.Behaviors.Add(passwordDigestBehavior);
 
-                
                 device.GetDeviceInformation(out model, out firmware, out serial, out hardware);
             }
             catch (Exception ex)
             {
+                Logger.WriteLog(ex.ToString());
                 return new OnvifDeviceDescription();
             }
 

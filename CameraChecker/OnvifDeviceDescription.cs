@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace CameraCheckerApp
 {
@@ -10,7 +11,11 @@ namespace CameraCheckerApp
     {
         public OnvifDeviceDescription()
         {
-
+            _brand = "";
+            _model = "";
+            _serial = "";
+            _firmware = "";
+            _endpoint = "";
         }
 
         public OnvifDeviceDescription(String brand, String model, String serial, String firmware, String endpoint)
@@ -48,7 +53,7 @@ namespace CameraCheckerApp
 
         public override string ToString()
         {
-            return _endpoint + " " + _brand + " " + _model;
+            return Ip + " " + _brand + " " + _model;
         }
 
         public String Brand
@@ -74,6 +79,15 @@ namespace CameraCheckerApp
         public String Endpoint
         {
             get { return _endpoint; }
+        }
+
+        public String Ip
+        {
+            get {
+                Uri uri = new Uri(_endpoint);
+                var ip = Dns.GetHostAddresses(uri.Host)[0];
+                return ip.ToString();
+            }
         }
 
         String _brand;

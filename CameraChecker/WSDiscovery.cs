@@ -26,6 +26,9 @@ namespace CameraCheckerApp
             _discoveryClient.FindProgressChanged += this.deviceFounded;
 
             _discoveryState = new object();
+
+            Logger.WriteLog("WSDiscovery has been created");
+            Logger.WriteLog(endPoint.ToString());
         }
 
         public event DeviceFoundHandler DeviceFound;
@@ -63,8 +66,11 @@ namespace CameraCheckerApp
             OnvifDeviceDescription device = model.GetModel(wsdevice.Endpoint, _login, _password);
             if (!_devices.Contains(device))
             {
-                _devices.Add(device);
-                DeviceFound(device.ToString());
+                if (!device.IsEmpty())
+                {
+                    _devices.Add(device);
+                    DeviceFound(device.ToString());
+                }
             }
         }
 

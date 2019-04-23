@@ -20,7 +20,7 @@ namespace CameraCheckerApp
 
         }
 
-        public void SaveImage(String uri, String login, String password)
+        public void SaveImage(String uri, String filename, String login, String password)
         {
             ServicePointManager.Expect100Continue = false;
             EndpointAddress address = new EndpointAddress(uri);
@@ -43,30 +43,62 @@ namespace CameraCheckerApp
                         string profileToken = profiles[1].token;
                         String snapshotUri = media.GetSnapshotUri(profileToken).Uri;
 
-                        DownloadRemoteImageFile(snapshotUri, "test.jpg");
+                        Stream fileStream = File.OpenWrite(filename);
+                        DownloadRemoteImage(snapshotUri, ref fileStream);
                     }
                     catch (Exception ex)
                     {
-                        
+                        Logger.WriteLog(ex.ToString());
                     }
                 } 
             }
             catch (Exception ex)
             {
+                Logger.WriteLog(ex.ToString());
             }
         }
 
-       /* System.ServiceModel.Channels.Binding WsdlBinding
+        public void SaveImageToStream(String uri, String login, String password, ref Stream result)
         {
-            get
+            ServicePointManager.Expect100Continue = false;
+            EndpointAddress address = new EndpointAddress(uri);
+            var device = new OnvifDevice.DeviceClient(WSDLBinding.GetWsdlBinding(), address);
+            try
             {
-                HttpTransportBindingElement httpTransport = new HttpTransportBindingElement();
-                httpTransport.AuthenticationScheme = System.Net.AuthenticationSchemes.Digest;
-                return new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.Soap12, Encoding.UTF8), httpTransport);
-            }
-        }*/
+                OnvifDevice.CapabilityCategory[] cats = { OnvifDevice.CapabilityCategory.All };
 
-        private void DownloadRemoteImageFile(string uri, string fileName)
+                var caps = device.GetCapabilities(cats);
+                var media = new OnvifMedia.MediaClient(WSDLBinding.GetWsdlBinding(), new EndpointAddress(caps.Media.XAddr));
+
+                if (media != null)
+                {
+                    media.ClientCredentials.HttpDigest.ClientCredential.UserName = login;
+                    media.ClientCredentials.HttpDigest.ClientCredential.Password = password;
+                    media.ClientCredentials.HttpDigest.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
+                    try
+                    {
+                        var profiles = media.GetProfiles();
+                        string profileToken = profiles[1].token;
+                        String snapshotUri = media.GetSnapshotUri(profileToken).Uri;
+
+                        DownloadRemoteImage(snapshotUri, ref result);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.WriteLog(ex.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog(ex.ToString());
+            }
+        }
+
+
+
+        // private void DownloadRemoteImageFile(string uri, string fileName)
+        private void DownloadRemoteImage(string uri, ref Stream outputStream)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -84,7 +116,6 @@ namespace CameraCheckerApp
 
                 // if the remote file was found, download oit
                 using (Stream inputStream = response.GetResponseStream())
-                using (Stream outputStream = File.OpenWrite(fileName))
                 {
                     byte[] buffer = new byte[4096];
                     int bytesRead;

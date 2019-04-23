@@ -37,8 +37,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBoxCameraImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).BeginInit();
@@ -69,7 +69,7 @@
             this.listBoxResults.FormattingEnabled = true;
             this.listBoxResults.Location = new System.Drawing.Point(3, 32);
             this.listBoxResults.Name = "listBoxResults";
-            this.listBoxResults.Size = new System.Drawing.Size(154, 264);
+            this.listBoxResults.Size = new System.Drawing.Size(154, 251);
             this.listBoxResults.TabIndex = 1;
             this.listBoxResults.SelectedIndexChanged += new System.EventHandler(this.listBoxResults_SelectedIndexChanged);
             // 
@@ -87,7 +87,7 @@
             // 
             this.pictureBoxImage.Location = new System.Drawing.Point(6, 19);
             this.pictureBoxImage.Name = "pictureBoxImage";
-            this.pictureBoxImage.Size = new System.Drawing.Size(522, 275);
+            this.pictureBoxImage.Size = new System.Drawing.Size(522, 260);
             this.pictureBoxImage.TabIndex = 0;
             this.pictureBoxImage.TabStop = false;
             // 
@@ -116,6 +116,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -125,23 +126,24 @@
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
+            // searchSettingsToolStripMenuItem
+            // 
+            this.searchSettingsToolStripMenuItem.Name = "searchSettingsToolStripMenuItem";
+            this.searchSettingsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.searchSettingsToolStripMenuItem.Text = "Search settings";
+            this.searchSettingsToolStripMenuItem.Click += new System.EventHandler(this.searchSettingsToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
-            // searchSettingsToolStripMenuItem
-            // 
-            this.searchSettingsToolStripMenuItem.Name = "searchSettingsToolStripMenuItem";
-            this.searchSettingsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.searchSettingsToolStripMenuItem.Text = "Search settings";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(724, 324);
+            this.ClientSize = new System.Drawing.Size(724, 319);
             this.Controls.Add(this.groupBoxCameraImage);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.menuStripMainMenu);
