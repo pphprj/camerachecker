@@ -70,6 +70,10 @@ namespace CameraCheckerApp
                 var caps = device.GetCapabilities(cats);
                 var media = new OnvifMedia.MediaClient(WSDLBinding.GetWsdlBinding(), new EndpointAddress(caps.Media.XAddr));
 
+                PasswordDigestBehavior passwordDigestBehavior = new PasswordDigestBehavior(login, password);
+
+                media.Endpoint.Behaviors.Add(passwordDigestBehavior);
+
                 if (media != null)
                 {
                     media.ClientCredentials.HttpDigest.ClientCredential.UserName = login;
