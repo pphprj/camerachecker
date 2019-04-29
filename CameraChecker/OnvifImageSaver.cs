@@ -25,6 +25,8 @@ namespace CameraCheckerApp
             ServicePointManager.Expect100Continue = false;
             EndpointAddress address = new EndpointAddress(uri);
             var device = new OnvifDevice.DeviceClient(WSDLBinding.GetWsdlBinding(), address);
+            PasswordDigestBehavior passwordDigestBehavior = new PasswordDigestBehavior(login, password);
+            device.Endpoint.Behaviors.Add(passwordDigestBehavior);
             try
             {
                 OnvifDevice.CapabilityCategory[] cats = { OnvifDevice.CapabilityCategory.All };
@@ -63,16 +65,14 @@ namespace CameraCheckerApp
             ServicePointManager.Expect100Continue = false;
             EndpointAddress address = new EndpointAddress(uri);
             var device = new OnvifDevice.DeviceClient(WSDLBinding.GetWsdlBinding(), address);
+            PasswordDigestBehavior passwordDigestBehavior = new PasswordDigestBehavior(login, password);
+            device.Endpoint.Behaviors.Add(passwordDigestBehavior);
             try
             {
                 OnvifDevice.CapabilityCategory[] cats = { OnvifDevice.CapabilityCategory.All };
 
                 var caps = device.GetCapabilities(cats);
                 var media = new OnvifMedia.MediaClient(WSDLBinding.GetWsdlBinding(), new EndpointAddress(caps.Media.XAddr));
-
-                PasswordDigestBehavior passwordDigestBehavior = new PasswordDigestBehavior(login, password);
-
-                media.Endpoint.Behaviors.Add(passwordDigestBehavior);
 
                 if (media != null)
                 {

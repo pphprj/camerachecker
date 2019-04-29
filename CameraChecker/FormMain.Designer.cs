@@ -32,16 +32,17 @@
             this.buttonSearch = new System.Windows.Forms.Button();
             this.listBoxResults = new System.Windows.Forms.ListBox();
             this.groupBoxCameraImage = new System.Windows.Forms.GroupBox();
-            this.pictureBoxImage = new System.Windows.Forms.PictureBox();
+            this.vlcControl = new Vlc.DotNet.Forms.VlcControl();
             this.menuStripMainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonSnapshot = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBoxCameraImage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vlcControl)).BeginInit();
             this.menuStripMainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,7 +76,8 @@
             // 
             // groupBoxCameraImage
             // 
-            this.groupBoxCameraImage.Controls.Add(this.pictureBoxImage);
+            this.groupBoxCameraImage.Controls.Add(this.buttonSnapshot);
+            this.groupBoxCameraImage.Controls.Add(this.vlcControl);
             this.groupBoxCameraImage.Location = new System.Drawing.Point(178, 27);
             this.groupBoxCameraImage.Name = "groupBoxCameraImage";
             this.groupBoxCameraImage.Size = new System.Drawing.Size(534, 285);
@@ -83,13 +85,18 @@
             this.groupBoxCameraImage.TabStop = false;
             this.groupBoxCameraImage.Text = "Camera image";
             // 
-            // pictureBoxImage
+            // vlcControl
             // 
-            this.pictureBoxImage.Location = new System.Drawing.Point(6, 19);
-            this.pictureBoxImage.Name = "pictureBoxImage";
-            this.pictureBoxImage.Size = new System.Drawing.Size(522, 260);
-            this.pictureBoxImage.TabIndex = 0;
-            this.pictureBoxImage.TabStop = false;
+            this.vlcControl.BackColor = System.Drawing.Color.Black;
+            this.vlcControl.Location = new System.Drawing.Point(6, 19);
+            this.vlcControl.Name = "vlcControl";
+            this.vlcControl.Size = new System.Drawing.Size(522, 261);
+            this.vlcControl.Spu = -1;
+            this.vlcControl.TabIndex = 1;
+            this.vlcControl.Text = "vlcControl";
+            this.vlcControl.VlcLibDirectory = null;
+            this.vlcControl.VlcMediaplayerOptions = null;
+            this.vlcControl.VlcLibDirectoryNeeded += new System.EventHandler<Vlc.DotNet.Forms.VlcLibDirectoryNeededEventArgs>(this.vlcControl1_VlcLibDirectoryNeeded);
             // 
             // menuStripMainMenu
             // 
@@ -114,7 +121,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -139,6 +146,16 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
+            // buttonSnapshot
+            // 
+            this.buttonSnapshot.Location = new System.Drawing.Point(453, 3);
+            this.buttonSnapshot.Name = "buttonSnapshot";
+            this.buttonSnapshot.Size = new System.Drawing.Size(75, 23);
+            this.buttonSnapshot.TabIndex = 2;
+            this.buttonSnapshot.Text = "Snapshot";
+            this.buttonSnapshot.UseVisualStyleBackColor = true;
+            this.buttonSnapshot.Click += new System.EventHandler(this.buttonSnapshot_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -153,7 +170,7 @@
             this.Text = "CameraChecker";
             this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBoxCameraImage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vlcControl)).EndInit();
             this.menuStripMainMenu.ResumeLayout(false);
             this.menuStripMainMenu.PerformLayout();
             this.ResumeLayout(false);
@@ -167,13 +184,14 @@
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.ListBox listBoxResults;
         private System.Windows.Forms.GroupBox groupBoxCameraImage;
-        private System.Windows.Forms.PictureBox pictureBoxImage;
         private System.Windows.Forms.MenuStrip menuStripMainMenu;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private Vlc.DotNet.Forms.VlcControl vlcControl;
+        private System.Windows.Forms.Button buttonSnapshot;
     }
 }
 
